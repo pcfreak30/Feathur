@@ -157,7 +157,7 @@ class Server extends CPHPDatabaseRecord
             $sKey = file_get_contents('/var/feathur/data/keys' . $sServer->sKey);
         }
         try {
-            if (!$sSSH->login($sServer->sUser, $sKey)) {
+            if (!$sSSH->login($sServer->sUser, $sKey,$sServer->uPort)) {
                 if (!empty($sAPI)) {
                     return $sResult = array("result" => 'Unable to connect to the host node, please contact customer serivce.');
                 }
