@@ -83,10 +83,10 @@ class Server extends CPHPDatabaseRecord
                         if (!empty($uType)) {
                             if (!empty($uLocation)) {
                                 if (($uType != 'kvm') || (!empty($uVolumeGroup))) {
-                                    $sSSH = new Net_SSH2($uHostname);
+                                    $sSSH = new Net_SSH2($uHostname, $uPort);
                                     $sKey = new Crypt_RSA();
                                     $sKey->loadKey($uKey);
-                                    if ($sSSH->login($uSuper, $sKey, $uPort)) {
+                                    if ($sSSH->login($uSuper, $sKey)) {
                                         $sKeyLocation = random_string(30) . '.txt';
                                         file_put_contents("/var/feathur/data/keys/" . $sKeyLocation, $uKey);
                                         $sServer = new Server(0);
@@ -148,7 +148,7 @@ class Server extends CPHPDatabaseRecord
 
     public static function server_connect($sServer, $sAPI = 0)
     {
-        $sSSH = new Net_SSH2($sServer->sIPAddress);
+        $sSSH = new Net_SSH2($sServer->sIPAddress,$sServer->uPort);
 
         if ($sServer->sPassword == 0) {
             $sKey = new Crypt_RSA();
@@ -157,7 +157,7 @@ class Server extends CPHPDatabaseRecord
             $sKey = file_get_contents('/var/feathur/data/keys' . $sServer->sKey);
         }
         try {
-            if (!$sSSH->login($sServer->sUser, $sKey,$sServer->uPort)) {
+            if (!$sSSH->login($sServer->sUser, $sKey)) {
                 if (!empty($sAPI)) {
                     return $sResult = array("result" => 'Unable to connect to the host node, please contact customer serivce.');
                 }
