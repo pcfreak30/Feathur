@@ -11,7 +11,7 @@ if ($sTemplate = $database->CachedQuery("SELECT * FROM `templates` WHERE `path` 
     }
     header('Content-type: application/iso');
     header('Content-Disposition: attachment; filename="' . $sTemplate->uPath . '.iso"');
-    header("Content-Disposition:  X-Accel-Redirect: /protected/{$sTemplate->uPath}.iso");
+    header("Content-Disposition:  X-Accel-Redirect: /os_templates/{$sTemplate->uPath}.iso");
 } else {
     die("Invalid template name.");
 }
