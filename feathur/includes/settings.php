@@ -70,8 +70,8 @@ NewTemplater::SetGlobalVariable("MailUsername", $sMailUsername->sValue);
 // Check For Sendgrid Password
 $sMailPassword = Core::GetSetting('mail_password');
 $sMailPassword = $sMailPassword->sValue;
-if(!empty($sMailPassword)){
-	NewTemplater::SetGlobalVariable("MailPassword", "1");
+if (!empty($sMailPassword)) {
+    NewTemplater::SetGlobalVariable("MailPassword", "1");
 }
 
 // Bandwidth Accounting
@@ -85,41 +85,41 @@ NewTemplater::SetGlobalVariable("BandwidthAccounting", $sBandwidthAccounting->sV
 $sLicense = Core::GetSetting('license');
 NewTemplater::SetGlobalVariable("License", $sLicense->sValue);
 
-if($sMail->sValue == 1){
-	include("./includes/library/sendgrid/SendGrid_loader.php");
-} elseif($sMail->sValue == 2){
-	include("./includes/library/mandril/mandril.php");
+if ($sMail->sValue == 1) {
+    include("./includes/library/sendgrid/SendGrid_loader.php");
+} elseif ($sMail->sValue == 2) {
+    include("./includes/library/mandril/mandril.php");
 }
 
-if(isset($_SESSION["user_id"])){
-	$sUser = new User($_SESSION["user_id"]);
-	$_SESSION['permissions'] = $sUser->sPermissions;
-	NewTemplater::SetGlobalVariable("Username", $sUser->sUsername);
-	NewTemplater::SetGlobalVariable("UserPermissions", $sUser->sPermissions);
-	
-	$sPullVPS = $database->CachedQuery("SELECT * FROM vps WHERE `user_id` = :UserId", array('UserId' => $sUser->sId));
-	
-	if(!empty($sPullVPS)){
-		foreach($sPullVPS->data as $key => $value){
-			$sServer = new Server($value["server_id"]);
-			if($sRequest == 'view.php'){
-				if($sId == $value["id"]){
-					$sViewing = 1;
-				} else {
-					$sViewing = 0;
-				}
-			} else {
-				$sViewing = 0;
-			}
-			$sVPS[] = array("id" => $value["id"],
-				"server_id" => $sServer->sId,
-				"server_name" => $sServer->sName,
-				"container_id" => $value["container_id"],
-				"hostname" => $value["hostname"],
-				"primary_ip" => $value["primary_ip"],
-				"type" => ucfirst($value["type"]),
-				"viewing" => $sViewing);
-		}
-	}
-	NewTemplater::SetGlobalVariable("UserVPS", $sVPS);
+if (isset($_SESSION["user_id"])) {
+    $sUser = new User($_SESSION["user_id"]);
+    $_SESSION['permissions'] = $sUser->sPermissions;
+    NewTemplater::SetGlobalVariable("Username", $sUser->sUsername);
+    NewTemplater::SetGlobalVariable("UserPermissions", $sUser->sPermissions);
+
+    $sPullVPS = $database->CachedQuery("SELECT * FROM vps WHERE `user_id` = :UserId", array('UserId' => $sUser->sId));
+
+    if (!empty($sPullVPS)) {
+        foreach ($sPullVPS->data as $key => $value) {
+            $sServer = new Server($value["server_id"]);
+            if ($sRequest == 'view.php') {
+                if ($sId == $value["id"]) {
+                    $sViewing = 1;
+                } else {
+                    $sViewing = 0;
+                }
+            } else {
+                $sViewing = 0;
+            }
+            $sVPS[] = array("id" => $value["id"],
+                "server_id" => $sServer->sId,
+                "server_name" => $sServer->sName,
+                "container_id" => $value["container_id"],
+                "hostname" => $value["hostname"],
+                "primary_ip" => $value["primary_ip"],
+                "type" => ucfirst($value["type"]),
+                "viewing" => $sViewing);
+        }
+    }
+    NewTemplater::SetGlobalVariable("UserVPS", $sVPS);
 }

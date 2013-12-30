@@ -11,23 +11,22 @@
  * licensing text.
  */
 
-if($_CPHP !== true) { die(); }
+if ($_CPHP !== true) {
+    die();
+}
 
-if(empty($_CPHP_CONFIG))
-{
-	die("No valid CPHP configuration path was specified. Refer to the CPHP manual for instructions.");
+if (empty($_CPHP_CONFIG)) {
+    die("No valid CPHP configuration path was specified. Refer to the CPHP manual for instructions.");
 }
 
 $confdata = @file_get_contents($_CPHP_CONFIG);
 
-if($confdata === false)
-{
-	die("The specified CPHP configuration path was not found. Refer to the CPHP manual for instructions.");
+if ($confdata === false) {
+    die("The specified CPHP configuration path was not found. Refer to the CPHP manual for instructions.");
 }
 
 $cphp_config = @json_decode($confdata);
 
-if(json_last_error() != JSON_ERROR_NONE)
-{
-	die("Failed to parse CPHP configuration. Refer to the CPHP manual for instructions.");
+if (json_last_error() != JSON_ERROR_NONE) {
+    die("Failed to parse CPHP configuration. Refer to the CPHP manual for instructions.");
 }

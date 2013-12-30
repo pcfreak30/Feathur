@@ -33,17 +33,15 @@ require("class.localizer.php");
 
 require("include.locale.php");
 
-if(empty($not_html))
-{
-	header("Content-Type:text/html; charset=UTF-8");
+if (empty($not_html)) {
+    header("Content-Type:text/html; charset=UTF-8");
 }
 
 require("class.base.php");
 require("class.databaserecord.php");
 
-foreach($cphp_config->components as $component)
-{
-	require("components/component.{$component}.php");
+foreach ($cphp_config->components as $component) {
+    require("components/component.{$component}.php");
 }
 
 /* lighttpd (and perhaps some other HTTPds) won't pass on GET parameters
@@ -55,48 +53,42 @@ foreach($cphp_config->components as $component)
 
 /* Detect whether the request URI and the $_GET array disagree on the
  * existence of GET parameters. */
-if(strpos($_SERVER['REQUEST_URI'], "?") !== false && empty($_GET))
-{
-	/* Separate the protocol/host/path component from the query string. */
-	list($uri, $query) = explode("?", $_SERVER['REQUEST_URI'], 2);
-	
-	/* Store the entire query string in the relevant $_SERVER variable -
-	 * lighttpds strange behaviour breaks this variable as well. */
-	$_SERVER['QUERY_STRING'] = $query;
-	
-	/* Finally, run the query string through PHPs own internal GET data
-	 * parser, and have it store the result in the $_GET variable. This
-	 * should yield an identical result to a well-functioning HTTPd. */
-	parse_str($query, $_GET);
+if (strpos($_SERVER['REQUEST_URI'], "?") !== false && empty($_GET)) {
+    /* Separate the protocol/host/path component from the query string. */
+    list($uri, $query) = explode("?", $_SERVER['REQUEST_URI'], 2);
+
+    /* Store the entire query string in the relevant $_SERVER variable -
+     * lighttpds strange behaviour breaks this variable as well. */
+    $_SERVER['QUERY_STRING'] = $query;
+
+    /* Finally, run the query string through PHPs own internal GET data
+     * parser, and have it store the result in the $_GET variable. This
+     * should yield an identical result to a well-functioning HTTPd. */
+    parse_str($query, $_GET);
 }
 
-if(get_magic_quotes_gpc())
-{
-	/* By default, get rid of all quoted variables. Magic quotes are evil. */
-	foreach($_POST as &$var)
-	{
-		$var = stripslashes($var);
-	}
-	
-	foreach($_GET as &$var)
-	{
-		$var = stripslashes($var);
-	}
+if (get_magic_quotes_gpc()) {
+    /* By default, get rid of all quoted variables. Magic quotes are evil. */
+    foreach ($_POST as &$var) {
+        $var = stripslashes($var);
+    }
+
+    foreach ($_GET as &$var) {
+        $var = stripslashes($var);
+    }
 }
 
-if(!empty($cphp_config->autoloader))
-{
-	function cphp_autoload_class($class_name) 
-	{
-		global $_APP;
-		
-		$class_name = str_replace("\\", "/", strtolower($class_name));
-		
-		if(file_exists("classes/{$class_name}.php"))
-		{
-			require_once("classes/{$class_name}.php");
-		}
-	}
+if (!empty($cphp_config->autoloader)) {
+    function cphp_autoload_class($class_name)
+    {
+        global $_APP;
 
-	spl_autoload_register('cphp_autoload_class');
+        $class_name = str_replace("\\", "/", strtolower($class_name));
+
+        if (file_exists("classes/{$class_name}.php")) {
+            require_once("classes/{$class_name}.php");
+        }
+    }
+
+    spl_autoload_register('cphp_autoload_class');
 }

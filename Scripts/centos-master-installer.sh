@@ -98,7 +98,7 @@ service php-fpm stop
 status " "
 status "Installing and configuring Feathur..."
 cd ~
-git clone -b develop https://github.com/BlueVM/Feathur.git /var/feathur
+git clone -b develop https://github.com/pcfreak30/Feathur.git /var/feathur
 mkdir -p /var/feathur/data/{templates/{openvz,kvm},keys}
 touch /var/feathur/data/log.txt
 mkdir /home/root/

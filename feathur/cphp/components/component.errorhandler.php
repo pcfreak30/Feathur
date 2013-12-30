@@ -13,56 +13,55 @@
 
 cphp_dependency_provides("cphp_errorhandler", "0.1");
 
-define("CPHP_ERRORHANDLER_TYPE_ERROR",			90001	);
-define("CPHP_ERRORHANDLER_TYPE_INFO",			90002	);
-define("CPHP_ERRORHANDLER_TYPE_WARNING",		90003	);
-define("CPHP_ERRORHANDLER_TYPE_SUCCESS",		90004	);
+define("CPHP_ERRORHANDLER_TYPE_ERROR", 90001);
+define("CPHP_ERRORHANDLER_TYPE_INFO", 90002);
+define("CPHP_ERRORHANDLER_TYPE_WARNING", 90003);
+define("CPHP_ERRORHANDLER_TYPE_SUCCESS", 90004);
 
 class CPHPErrorHandler
 {
-	public $sErrorType = CPHP_ERRORHANDLER_TYPE_ERROR;
-	public $sLogError = true;
-	public $sTitle = "";
-	public $sMessage = "";
-	
-	public function __construct($type, $title, $message, $log = true)
-	{
-		$this->sErrorType = $type;
-		$this->sLogError = $log;
-		$this->sTitle = $title;
-		$this->sMessage = $message;
-	}
-	
-	public function LogError($context, $message)
-	{
-		// FIXME placeholder function, error logging has not been implemented yet
-	}
-	
-	public function Render()
-	{
-		global $locale;
-		
-		switch($this->sErrorType)
-		{
-			case CPHP_ERRORHANDLER_TYPE_ERROR:
-				$template = "errorhandler.error";
-				break;
-			case CPHP_ERRORHANDLER_TYPE_INFO:
-				$template = "errorhandler.info";
-				break;
-			case CPHP_ERRORHANDLER_TYPE_WARNING:
-				$template = "errorhandler.warning";
-				break;
-			case CPHP_ERRORHANDLER_TYPE_SUCCESS:
-				$template = "errorhandler.success";
-				break;
-			default:
-				return false;
-		}
-		
-		return Templater::AdvancedParse($template, $locale->strings, array(
-			'title'		=> $this->sTitle,
-			'message'	=> $this->sMessage
-		));
-	}
+    public $sErrorType = CPHP_ERRORHANDLER_TYPE_ERROR;
+    public $sLogError = true;
+    public $sTitle = "";
+    public $sMessage = "";
+
+    public function __construct($type, $title, $message, $log = true)
+    {
+        $this->sErrorType = $type;
+        $this->sLogError = $log;
+        $this->sTitle = $title;
+        $this->sMessage = $message;
+    }
+
+    public function LogError($context, $message)
+    {
+        // FIXME placeholder function, error logging has not been implemented yet
+    }
+
+    public function Render()
+    {
+        global $locale;
+
+        switch ($this->sErrorType) {
+            case CPHP_ERRORHANDLER_TYPE_ERROR:
+                $template = "errorhandler.error";
+                break;
+            case CPHP_ERRORHANDLER_TYPE_INFO:
+                $template = "errorhandler.info";
+                break;
+            case CPHP_ERRORHANDLER_TYPE_WARNING:
+                $template = "errorhandler.warning";
+                break;
+            case CPHP_ERRORHANDLER_TYPE_SUCCESS:
+                $template = "errorhandler.success";
+                break;
+            default:
+                return false;
+        }
+
+        return Templater::AdvancedParse($template, $locale->strings, array(
+            'title' => $this->sTitle,
+            'message' => $this->sMessage
+        ));
+    }
 }

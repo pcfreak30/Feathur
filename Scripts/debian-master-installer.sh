@@ -186,7 +186,7 @@ status "Base Config: 1 / 11"
 
 mkdir /var/feathur/
 cd /var/feathur/
-git clone -b develop https://github.com/BlueVM/Feathur.git /var/feathur/
+git clone -b develop https://github.com/pcfreak30/Feathur.git /var/feathur/
 
 cd ~/feathur-install/
 status "Base Config: 2 / 11"

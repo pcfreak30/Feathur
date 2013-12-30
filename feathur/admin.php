@@ -9,20 +9,20 @@ $sType = $_GET['type'];
 $sPage = "admin";
 $sPageType = "";
 
-if(empty($sUser)){
-	header("Location: index.php");
-	die();
+if (empty($sUser)) {
+    header("Location: index.php");
+    die();
 }
 
-if($sUser->sPermissions != 7){
-	header("Location: main.php");
-	die();
+if ($sUser->sPermissions != 7) {
+    header("Location: main.php");
+    die();
 }
 
-if(file_exists('./admin/'.$sView.'.php')) {
-	include('./admin/'.$sView.'.php');
+if (file_exists('./admin/' . $sView . '.php')) {
+    include('./admin/' . $sView . '.php');
 } else {
-	include("./admin/dashboard.php");
+    include("./admin/dashboard.php");
 }
 
-echo Templater::AdvancedParse($sTemplate->sValue.'/master', $locale->strings, array("Content" => $sContent, "Page" => $sPage, "PageType" => $sPageType, "Errors" => $sErrors));
+echo Templater::AdvancedParse($sTemplate->sValue . '/master', $locale->strings, array("Content" => $sContent, "Page" => $sPage, "PageType" => $sPageType, "Errors" => $sErrors));

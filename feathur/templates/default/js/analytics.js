@@ -40,6 +40,7 @@ window.onload = function () {
             y2: p2y + dy2
         };
     }
+
     // Grab the data
     var labels = [],
         data = [];
@@ -49,7 +50,7 @@ window.onload = function () {
     $("#data tbody td").each(function () {
         data.push($(this).html());
     });
-    
+
     // Draw
     var width = 740,
         height = 220,

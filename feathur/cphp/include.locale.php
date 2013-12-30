@@ -11,16 +11,15 @@
  * licensing text.
  */
 
-if($_CPHP !== true) { die(); }
-
-if(!empty($cphp_config->locale->default_locale))
-{
-	$locale = new Localizer();
-	$locale->Load($cphp_config->locale->default_locale);
-
-	setlocale(LC_ALL, $locale->locale);
+if ($_CPHP !== true) {
+    die();
 }
-else
-{
-	die("No default locale was specified. Refer to the CPHP manual for instructions.");
+
+if (!empty($cphp_config->locale->default_locale)) {
+    $locale = new Localizer();
+    $locale->Load($cphp_config->locale->default_locale);
+
+    setlocale(LC_ALL, $locale->locale);
+} else {
+    die("No default locale was specified. Refer to the CPHP manual for instructions.");
 }

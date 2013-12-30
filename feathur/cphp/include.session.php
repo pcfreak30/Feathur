@@ -11,6 +11,8 @@
  * licensing text.
  */
 
-if($_CPHP !== true) { die(); }
+if ($_CPHP !== true) {
+    die();
+}
 
 session_start();

@@ -11,54 +11,87 @@
  * licensing text.
  */
 
-if($_CPHP !== true) { die(); }
+if ($_CPHP !== true) {
+    die();
+}
 
 class BaseException extends Exception
 {
-	public function __construct($message, $code = 0, $previous = null, $data = array())
-	{
-		$this->data = $data;
-		
-		parent::__construct($message, $code, $previous);
-	}
+    public function __construct($message, $code = 0, $previous = null, $data = array())
+    {
+        $this->data = $data;
+
+        parent::__construct($message, $code, $previous);
+    }
 }
 
-class OwnershipException extends BaseException {}
-class UserAccessException extends BaseException {}
-class PrototypeException extends BaseException {}
-class ConstructorException extends BaseException {}
-class MissingDataException extends BaseException {}
-class DatabaseException extends BaseException {}
-class TypeException extends BaseException {}
-class DeprecatedException extends BaseException {}
+class OwnershipException extends BaseException
+{
+}
+
+class UserAccessException extends BaseException
+{
+}
+
+class PrototypeException extends BaseException
+{
+}
+
+class ConstructorException extends BaseException
+{
+}
+
+class MissingDataException extends BaseException
+{
+}
+
+class DatabaseException extends BaseException
+{
+}
+
+class TypeException extends BaseException
+{
+}
+
+class DeprecatedException extends BaseException
+{
+}
 
 class TemplateException extends Exception
 {
-	public $message = "";
-	public $file = "";
-	public $startpos = 0;
-	public $endpos = 0;
-	public $code = 0;
-	
-	public function __construct($message, $file, $startpos, $endpos = 0, $code = "")
-	{
-		$this->message = $message;
-		$this->file = $file;
-		$this->startpos = $startpos;
-		$this->endpos = $endpos;
-	}
+    public $message = "";
+    public $file = "";
+    public $startpos = 0;
+    public $endpos = 0;
+    public $code = 0;
+
+    public function __construct($message, $file, $startpos, $endpos = 0, $code = "")
+    {
+        $this->message = $message;
+        $this->file = $file;
+        $this->startpos = $startpos;
+        $this->endpos = $endpos;
+    }
 }
 
-class NotFoundException extends BaseException 
+class NotFoundException extends BaseException
 {
-	public function __construct($message, $code = 0, $previous = null, $field =  "", $data = array())
-	{
-		$this->field = $field;
-		
-		parent::__construct($message, $code, $previous, $data);
-	}
+    public function __construct($message, $code = 0, $previous = null, $field = "", $data = array())
+    {
+        $this->field = $field;
+
+        parent::__construct($message, $code, $previous, $data);
+    }
 }
 
-class TemplateSyntaxException extends TemplateException {}
-class TemplateParsingException extends TemplateException {}
-class TemplateEvaluationException extends BaseException {}
+class TemplateSyntaxException extends TemplateException
+{
+}
+
+class TemplateParsingException extends TemplateException
+{
+}
+
+class TemplateEvaluationException extends BaseException
+{
+}
