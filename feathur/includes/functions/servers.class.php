@@ -71,8 +71,11 @@ class Server extends CPHPDatabaseRecord
         ),
     );
 
-    public static function server_add($uName, $uHostname, $uSuper, $uKey, $uType, $uStatus, $uLocation, $uQEMU, $uVolumeGroup)
+    public static function server_add($uName, $uHostname, $uPort, $uSuper, $uKey, $uType, $uStatus, $uLocation, $uQEMU, $uVolumeGroup)
     {
+        if (empty($uPort)) {
+            $uPort = 22;
+        }
         if (!empty($uName)) {
             if (!empty($uHostname)) {
                 if (!empty($uSuper)) {
@@ -83,12 +86,13 @@ class Server extends CPHPDatabaseRecord
                                     $sSSH = new Net_SSH2($uHostname);
                                     $sKey = new Crypt_RSA();
                                     $sKey->loadKey($uKey);
-                                    if ($sSSH->login($uSuper, $sKey)) {
+                                    if ($sSSH->login($uSuper, $sKey, $uPort)) {
                                         $sKeyLocation = random_string(30) . '.txt';
                                         file_put_contents("/var/feathur/data/keys/" . $sKeyLocation, $uKey);
                                         $sServer = new Server(0);
                                         $sServer->uName = $uName;
                                         $sServer->uIPAddress = $uHostname;
+                                        $sServer->uPort = $uPort;
                                         $sServer->uUser = $uSuper;
                                         $sServer->uKey = $sKeyLocation;
                                         $sServer->uType = $uType;

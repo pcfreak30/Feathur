@@ -30,6 +30,12 @@
                     <div class="clear"></div>
                 </div>
                 <div class="st-form-line">
+                    <span class="st-labeltext">Port:</span>
+                    <input id="Hostname" type="text" name="port" style="width:500px;">
+
+                    <div class="clear"></div>
+                </div>
+                <div class="st-form-line">
                     <span class="st-labeltext">Super User (Usually root):</span>
                     <input id="Username" type="text" name="username" value="root" style="width:500px;">
 
